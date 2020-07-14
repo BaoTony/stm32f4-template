@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F40_41xxx,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\APP\inc;..\Drivers\BSP\inc;..\Drivers\CMSIS\inc;..\Drivers\SYSTEM\inc;..\Drivers\STM32F4xx_StdPeriph_Driver\inc;..\Middlewares\Third_Party\FreeRTOS\include;..\Middlewares\Third_Party\FreeRTOS\portable\MemMang;..\Middlewares\Third_Party\FreeRTOS\portable\RVDS\ARM_CM4F;..\MiddleWares\Third_Party\WIZnet\inc</IncludePath>
+              <IncludePath>..\APP\inc;..\Drivers\BSP\inc;..\Drivers\CMSIS\inc;..\Drivers\SYSTEM\inc;..\Drivers\STM32F4xx_StdPeriph_Driver\inc;..\Middlewares\Third_Party\FreeRTOS\include;..\Middlewares\Third_Party\FreeRTOS\portable\MemMang;..\Middlewares\Third_Party\FreeRTOS\portable\RVDS\ARM_CM4F;..\MiddleWares\Third_Party\WIZnet\inc;..\MiddleWares\Third_Party\MQTT\inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -407,6 +407,11 @@
               <FileName>led.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Drivers\BSP\src\led.c</FilePath>
+            </File>
+            <File>
+              <FileName>spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drivers\BSP\src\spi.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -577,6 +582,61 @@
               <FileName>dns.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\MiddleWares\Third_Party\WIZnet\src\dns.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>MQTT</GroupName>
+          <Files>
+            <File>
+              <FileName>MQTTConnectClient.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MiddleWares\Third_Party\MQTT\src\MQTTConnectClient.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTConnectServer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MiddleWares\Third_Party\MQTT\src\MQTTConnectServer.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTDeserializePublish.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MiddleWares\Third_Party\MQTT\src\MQTTDeserializePublish.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTFormat.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MiddleWares\Third_Party\MQTT\src\MQTTFormat.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTPacket.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MiddleWares\Third_Party\MQTT\src\MQTTPacket.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTSerializePublish.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MiddleWares\Third_Party\MQTT\src\MQTTSerializePublish.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTSubscribeClient.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MiddleWares\Third_Party\MQTT\src\MQTTSubscribeClient.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTSubscribeServer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MiddleWares\Third_Party\MQTT\src\MQTTSubscribeServer.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTUnsubscribeClient.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MiddleWares\Third_Party\MQTT\src\MQTTUnsubscribeClient.c</FilePath>
+            </File>
+            <File>
+              <FileName>MQTTUnsubscribeServer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MiddleWares\Third_Party\MQTT\src\MQTTUnsubscribeServer.c</FilePath>
             </File>
           </Files>
         </Group>
