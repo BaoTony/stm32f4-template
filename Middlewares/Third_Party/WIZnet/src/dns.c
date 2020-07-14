@@ -539,7 +539,6 @@ int8_t DNS_run(uint8_t * dns_ip, uint8_t * name, uint8_t * ip_from_dns)
 #ifdef _DNS_DEBUG_
 			printf("> DNS Server is not responding : %d.%d.%d.%d\r\n", dns_ip[0], dns_ip[1], dns_ip[2], dns_ip[3]);
 #endif
-			wizchip_close(DNS_SOCKET);
 			return 0; // timeout occurred
 		}
 		else if (ret_check_timeout == 0) {
@@ -548,6 +547,11 @@ int8_t DNS_run(uint8_t * dns_ip, uint8_t * name, uint8_t * ip_from_dns)
 			printf("> DNS Timeout\r\n");
 #endif
 			sendto(DNS_SOCKET, pDNSMSG, len, dns_ip, IPPORT_DOMAIN);
+		}
+		/***个人添加***/
+		else
+		{
+			dns_1s_tick++;
 		}
 	}
 	close(DNS_SOCKET);
@@ -561,4 +565,93 @@ int8_t DNS_run(uint8_t * dns_ip, uint8_t * name, uint8_t * ip_from_dns)
 void DNS_time_handler(void)
 {
 	dns_1s_tick++;
+}
+
+/************************************************
+函数名称 ： DNS_run_NoBlock（个人修改）
+功    能 ： DNS任务函数--非阻塞形式
+参    数 ： 无
+返 回 值 ： 无
+*************************************************/
+int8_t DNS_run_NoBlock(uint8_t * dns_ip, uint8_t * name, uint8_t * ip_from_dns, uint8_t ActFlag)
+{
+	int8_t ret = -2;
+	struct dhdr dhp;
+	uint8_t ip[4];
+	uint16_t len, port;
+	int8_t ret_check_timeout;
+
+	static uint8_t DNS_RunStep = 1;
+	static uint8_t DNS_DelayCnt = 0;
+	
+	switch(DNS_RunStep)
+	{
+		case 1:
+			retry_count = 0;
+			dns_1s_tick = 0;
+		
+			// Socket open
+			socket(DNS_SOCKET, Sn_MR_UDP, 0, 0);
+		
+			#ifdef _DNS_DEBUG_
+				printf("> DNS Query to DNS Server : %d.%d.%d.%d\r\n", dns_ip[0], dns_ip[1], dns_ip[2], dns_ip[3]);
+			#endif
+		
+			len = dns_makequery(0, (char *)name, pDNSMSG, MAX_DNS_BUF_SIZE);
+			sendto(DNS_SOCKET, pDNSMSG, len, dns_ip, IPPORT_DOMAIN);
+		
+			DNS_RunStep = 2;
+		case 2:
+			if((len = getSn_RX_RSR(DNS_SOCKET)) > 0)
+			{
+				if(len > MAX_DNS_BUF_SIZE)
+					len = MAX_DNS_BUF_SIZE;
+				len = recvfrom(DNS_SOCKET, pDNSMSG, len, ip, &port);
+				#ifdef _DNS_DEBUG_
+					printf("> Receive DNS message from %d.%d.%d.%d(%d). len = %d\r\n", ip[0], ip[1], ip[2], ip[3],port,len);
+				#endif
+				
+				DNS_RunStep = 1;
+				DNS_DelayCnt = 0;
+				ret = parseDNSMSG(&dhp, pDNSMSG, ip_from_dns);
+				close(DNS_SOCKET);
+				break;
+			}
+			
+			// Check Timeout
+			ret_check_timeout = check_DNS_timeout();
+			if(ret_check_timeout < 0)
+			{
+				#ifdef _DNS_DEBUG_
+					printf("> DNS Server is not responding : %d.%d.%d.%d\r\n", dns_ip[0], dns_ip[1], dns_ip[2], dns_ip[3]);
+				#endif
+				DNS_RunStep = 1;
+				DNS_DelayCnt = 0;
+				return 0; // timeout occurred
+			}
+			else if(ret_check_timeout == 0)
+			{
+				#ifdef _DNS_DEBUG_
+					printf("> DNS Timeout\r\n");
+				#endif
+				sendto(DNS_SOCKET, pDNSMSG, len, dns_ip, IPPORT_DOMAIN);
+			}
+			
+			if(ActFlag)
+			{
+				DNS_DelayCnt++;
+				if(DNS_DelayCnt >= 10)
+				{
+					DNS_DelayCnt = 0;
+					DNS_time_handler();
+				}
+			}
+			break;
+		default:
+			break;
+	}
+	
+	// Return value
+	// 0 > :  failed / 1 - success
+	return ret;
 }

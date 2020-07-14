@@ -3,10 +3,9 @@
 //! \file dhcp.h
 //! \brief DHCP APIs Header file.
 //! \details Processig DHCP protocol as DISCOVER, OFFER, REQUEST, ACK, NACK and DECLINE.
-//! \version 1.1.1
-//! \date 2019/10/08
+//! \version 1.1.0
+//! \date 2013/11/18
 //! \par  Revision history
-//!       <2019/10/08> compare DHCP server ip address
 //!       <2013/11/18> 1st Release
 //!       <2012/12/20> V1.1.0
 //!         1. Move unreferenced DEFINE to dhcp.c
@@ -55,7 +54,7 @@ extern "C" {
  * @details If you want to display debug & processing message, Define _DHCP_DEBUG_ 
  * @note    If defined, it depends on <stdio.h>
  */
-//#define _DHCP_DEBUG_
+#define _DHCP_DEBUG_
 
 
 /* Retry to processing DHCP */

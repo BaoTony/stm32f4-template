@@ -60,7 +60,7 @@ extern "C" {
  * @brief Define it for Debug & Monitor DNS processing.
  * @note If defined, it dependens on <stdio.h>
  */
-//#define _DNS_DEBUG_
+#define _DNS_DEBUG_
 
 #define	MAX_DNS_BUF_SIZE	256		///< maximum size of DNS buffer. */
 /*
@@ -71,7 +71,8 @@ extern "C" {
 #define  MAX_DOMAIN_NAME   16       // for example "www.google.com"
 
 #define	MAX_DNS_RETRY     2        ///< Requery Count
-#define	DNS_WAIT_TIME     3        ///< Wait response time. unit 1s.
+//#define	DNS_WAIT_TIME     3        ///< Wait response time. unit 1s.
+#define	DNS_WAIT_TIME     0xFFFF
 
 #define	IPPORT_DOMAIN     53       ///< DNS server port number
 
@@ -95,6 +96,8 @@ void DNS_init(uint8_t s, uint8_t * buf);
  * @note This funtion blocks until success or fail. max time = @ref MAX_DNS_RETRY * @ref DNS_WAIT_TIME
  */
 int8_t DNS_run(uint8_t * dns_ip, uint8_t * name, uint8_t * ip_from_dns);
+
+int8_t DNS_run_NoBlock(uint8_t * dns_ip, uint8_t * name, uint8_t * ip_from_dns, uint8_t ActFlag);
 
 /*
  * @brief DNS 1s Tick Timer handler

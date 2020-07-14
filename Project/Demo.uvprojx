@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F40_41xxx,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\APP\inc;..\Drivers\BSP\inc;..\Drivers\CMSIS\inc;..\Drivers\SYSTEM\inc;..\Drivers\STM32F4xx_StdPeriph_Driver\inc;..\Middlewares\Third_Party\FreeRTOS\include;..\Middlewares\Third_Party\FreeRTOS\portable\MemMang;..\Middlewares\Third_Party\FreeRTOS\portable\RVDS\ARM_CM4F</IncludePath>
+              <IncludePath>..\APP\inc;..\Drivers\BSP\inc;..\Drivers\CMSIS\inc;..\Drivers\SYSTEM\inc;..\Drivers\STM32F4xx_StdPeriph_Driver\inc;..\Middlewares\Third_Party\FreeRTOS\include;..\Middlewares\Third_Party\FreeRTOS\portable\MemMang;..\Middlewares\Third_Party\FreeRTOS\portable\RVDS\ARM_CM4F;..\MiddleWares\Third_Party\WIZnet\inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -411,7 +411,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>CORE</GroupName>
+          <GroupName>Core</GroupName>
           <Files>
             <File>
               <FileName>system_stm32f4xx.c</FileName>
@@ -547,9 +547,38 @@
         </Group>
         <Group>
           <GroupName>Ethernet</GroupName>
+          <Files>
+            <File>
+              <FileName>socket.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MiddleWares\Third_Party\WIZnet\src\socket.c</FilePath>
+            </File>
+            <File>
+              <FileName>w5500.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MiddleWares\Third_Party\WIZnet\src\w5500.c</FilePath>
+            </File>
+            <File>
+              <FileName>wizchip_conf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MiddleWares\Third_Party\WIZnet\src\wizchip_conf.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>Internet</GroupName>
+          <Files>
+            <File>
+              <FileName>dhcp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MiddleWares\Third_Party\WIZnet\src\dhcp.c</FilePath>
+            </File>
+            <File>
+              <FileName>dns.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MiddleWares\Third_Party\WIZnet\src\dns.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>ReadMe</GroupName>

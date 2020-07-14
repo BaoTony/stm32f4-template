@@ -72,7 +72,7 @@ extern "C" {
 #define W5500						5500
 
 #ifndef _WIZCHIP_
-#define _WIZCHIP_                      W5100S   // W5100, W5100S, W5200, W5300, W5500
+#define _WIZCHIP_                      W5500   // W5100, W5100S, W5200, W5300, W5500
 #endif
 
 #define _WIZCHIP_IO_MODE_NONE_         0x0000
@@ -103,7 +103,8 @@ extern "C" {
 //A20150601 : Define the unit of IO DATA.   
    typedef   uint8_t   iodata_t;
 //A20150401 : Indclude W5100.h file
-   #include "W5100/w5100.h"
+//	#include "W5100/w5100.h"
+	#include "w5100.h"
 
 #elif (_WIZCHIP_ == W5100S)
 #define _WIZCHIP_ID_                "W5100S\0"
@@ -112,13 +113,14 @@ extern "C" {
 * @todo you should select interface mode as chip. Select one of @ref \_WIZCHIP_IO_MODE_SPI_ , @ref \_WIZCHIP_IO_MODE_BUS_DIR_ or @ref \_WIZCHIP_IO_MODE_BUS_INDIR_
 */
 //	#define _WIZCHIP_IO_MODE_           _WIZCHIP_IO_MODE_BUS_INDIR_
-	//#define _WIZCHIP_IO_MODE_           _WIZCHIP_IO_MODE_SPI_5500_
+//	#define _WIZCHIP_IO_MODE_           _WIZCHIP_IO_MODE_SPI_5500_
 	#define _WIZCHIP_IO_MODE_           _WIZCHIP_IO_MODE_SPI_
 
 //A20150601 : Define the unit of IO DATA.
    typedef   uint8_t   iodata_t;
 //A20150401 : Indclude W5100.h file
-	#include "W5100S/w5100s.h"
+//	#include "W5100S/w5100s.h"
+	#include "w5100s.h"
 #elif (_WIZCHIP_ == W5200)
    #define _WIZCHIP_ID_                "W5200\0"
 /**
@@ -131,7 +133,8 @@ extern "C" {
 #endif
 //A20150601 : Define the unit of IO DATA.   
    typedef   uint8_t   iodata_t;
-   #include "W5200/w5200.h"
+//	#include "W5200/w5200.h"
+	#include "w5200.h"
 #elif (_WIZCHIP_ == W5500)
   #define _WIZCHIP_ID_                 "W5500\0"
   
@@ -154,7 +157,8 @@ extern "C" {
 #endif
 //A20150601 : Define the unit of IO DATA.   
    typedef   uint8_t   iodata_t;
-   #include "W5500/w5500.h"
+//	#include "W5500/w5500.h"
+   #include "w5500.h"
 #elif ( _WIZCHIP_ == W5300)
    #define _WIZCHIP_ID_                 "W5300\0"
 /**
