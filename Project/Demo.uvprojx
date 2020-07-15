@@ -389,14 +389,19 @@
               <FilePath>..\APP\src\main.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_it.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\APP\src\stm32f4xx_it.c</FilePath>
-            </File>
-            <File>
               <FileName>utask.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\APP\src\utask.c</FilePath>
+            </File>
+            <File>
+              <FileName>network.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APP\src\network.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_it.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APP\src\stm32f4xx_it.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -412,11 +417,6 @@
               <FileName>spi.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Drivers\BSP\src\spi.c</FilePath>
-            </File>
-            <File>
-              <FileName>network.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Drivers\BSP\src\network.c</FilePath>
             </File>
             <File>
               <FileName>time.c</FileName>
