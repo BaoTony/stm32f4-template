@@ -1,20 +1,28 @@
+/*
+ * @Author: TonyJia
+ * @Date: 2020-07-13 19:57:04
+ * @LastEditTime: 2020-07-15 21:28:41
+ * @LastEditors: TonyJia
+ * @Description: 
+ */ 
 #include "led.h" 
 	    
-//LED IO³õÊ¼»¯
+//LED IOåˆå§‹åŒ–
 void LED_Init(void)
 {    	 
 	GPIO_InitTypeDef  GPIO_InitStructure;
 
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);//Ê¹ÄÜGPIOBÊ±ÖÓ
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);//ä½¿èƒ½GPIOBæ—¶é’Ÿ
 
-	//GPIOB8,B9³õÊ¼»¯ÉèÖÃ
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;//LED0ºÍLED1¶ÔÓ¦IO¿Ú
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;//ÆÕÍ¨Êä³öÄ£Ê½
-	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//ÍÆÍìÊä³ö
+	//GPIOB8,B9åˆå§‹åŒ–è®¾ç½®
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;//LED0å’ŒLED1å¯¹åº”IOå£
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;//æ™®é€šè¾“å‡ºæ¨¡å¼
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//æ¨æŒ½è¾“å‡º
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;//100MHz
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//ÉÏÀ­
-	GPIO_Init(GPIOB, &GPIO_InitStructure);//³õÊ¼»¯GPIO
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//ä¸Šæ‹‰
+	GPIO_Init(GPIOB, &GPIO_InitStructure);//åˆå§‹åŒ–GPIO
 
-	GPIO_SetBits(GPIOB, GPIO_Pin_9);//GPIOB8,B9ÉèÖÃ¸ß£¬µÆÃğ
+	GPIO_SetBits(GPIOB, GPIO_Pin_9);//GPIOB8,B9è®¾ç½®é«˜ï¼Œç¯ç­
 }
 
+/*********************************END OF FILE**********************************/

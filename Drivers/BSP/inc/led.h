@@ -1,10 +1,19 @@
+/*** 
+ * @Author: TonyJia
+ * @Date: 2020-07-13 19:57:04
+ * @LastEditTime: 2020-07-15 21:29:34
+ * @LastEditors: TonyJia
+ * @Description: 
+ */
 #ifndef __LED_H
 #define __LED_H
 #include "sys.h"
 
-//LED¶Ë¿Ú¶¨Òå
+//LEDç«¯å£å®šä¹‰
 #define LED1 PBout(9)	// DS1	 
 
-void LED_Init(void);//³õÊ¼»¯	
+void LED_Init(void);//åˆå§‹åŒ–	
 
 #endif
+
+/*********************************END OF FILE**********************************/

@@ -1,35 +1,35 @@
 #include "utask.h"
 
 
-//¿ªÊ¼ÈÎÎñÓÅÏÈ¼¶
+//å¼€å§‹ä»»åŠ¡ä¼˜å…ˆçº§
 #define START_TASK_PRIO 1
-//¿ªÊ¼ÈÎÎñ¶ÑÕ»´óĞ¡
+//å¼€å§‹ä»»åŠ¡å †æ ˆå¤§å°
 #define START_STK_SIZE 128
-//¿ªÊ¼ÈÎÎñ¾ä±ú
+//å¼€å§‹ä»»åŠ¡å¥æŸ„
 TaskHandle_t StartTask_Handler;
-//¿ªÊ¼ÈÎÎñº¯Êı
+//å¼€å§‹ä»»åŠ¡å‡½æ•°
 void start_task(void *pvParameters);
 
-//ÏµÍ³×´Ì¬ÈÎÎñÓÅÏÈ¼¶
+//ç³»ç»ŸçŠ¶æ€ä»»åŠ¡ä¼˜å…ˆçº§
 #define SYSTEM_STATE_TASK_PRIO 2
-//ÏµÍ³×´Ì¬ÈÎÎñ¶ÑÕ»´óĞ¡
+//ç³»ç»ŸçŠ¶æ€ä»»åŠ¡å †æ ˆå¤§å°
 #define SYSTEM_STATE_STK_SIZE 128
-//ÏµÍ³×´Ì¬ÈÎÎñ¾ä±ú
+//ç³»ç»ŸçŠ¶æ€ä»»åŠ¡å¥æŸ„
 TaskHandle_t SystemStateTask_Handler;
-//ÏµÍ³×´Ì¬ÈÎÎñº¯Êı
+//ç³»ç»ŸçŠ¶æ€ä»»åŠ¡å‡½æ•°
 void system_state_task(void *pvParameters);
 
-//ÍøÂçÈÎÎñÓÅÏÈ¼¶
+//ç½‘ç»œä»»åŠ¡ä¼˜å…ˆçº§
 #define NETWORK_TASK_PRIO 3
-//ÍøÂçÈÎÎñ¶ÑÕ»´óĞ¡
+//ç½‘ç»œä»»åŠ¡å †æ ˆå¤§å°
 #define NETWORK_STK_SIZE 128
-//ÍøÂçÈÎÎñ¾ä±ú
+//ç½‘ç»œä»»åŠ¡å¥æŸ„
 TaskHandle_t NetworkTask_Handler;
-//ÍøÂçÈÎÎñº¯Êı
+//ç½‘ç»œä»»åŠ¡å‡½æ•°
 void network_task(void *pvParameters);
 
 
-//ÏµÍ³×´Ì¬ÈÎÎñº¯Êı
+//ç³»ç»ŸçŠ¶æ€ä»»åŠ¡å‡½æ•°
 void system_state_task(void *pvParameters)
 {
 	while (1)
@@ -41,7 +41,7 @@ void system_state_task(void *pvParameters)
 	}
 }
 
-//ÍøÂçÈÎÎñº¯Êı
+//ç½‘ç»œä»»åŠ¡å‡½æ•°
 void network_task(void *pvParameters)
 {
 	while (1)
@@ -52,44 +52,45 @@ void network_task(void *pvParameters)
 }
 
 
-//¿ªÊ¼ÈÎÎñÈÎÎñº¯Êı
+//å¼€å§‹ä»»åŠ¡ä»»åŠ¡å‡½æ•°
 void start_task(void *pvParameters)
 {
-	taskENTER_CRITICAL(); //½øÈëÁÙ½çÇø
+	taskENTER_CRITICAL(); //è¿›å…¥ä¸´ç•ŒåŒº
 
-	//´´½¨ÏµÍ³×´Ì¬ÈÎÎñ
+	//åˆ›å»ºç³»ç»ŸçŠ¶æ€ä»»åŠ¡
 	xTaskCreate((TaskFunction_t)system_state_task,
 			  (const char *)"task1_task",
 			  (uint16_t)SYSTEM_STATE_STK_SIZE,
 			  (void *)NULL,
 			  (UBaseType_t)SYSTEM_STATE_TASK_PRIO,
 			  (TaskHandle_t *)&SystemStateTask_Handler);
-	//´´½¨ÍøÂçÈÎÎñ
+	//åˆ›å»ºç½‘ç»œä»»åŠ¡
 	xTaskCreate((TaskFunction_t)network_task,
 			  (const char *)"network_task",
 			  (uint16_t)NETWORK_STK_SIZE,
 			  (void *)NULL,
 			  (UBaseType_t)NETWORK_TASK_PRIO,
 			  (TaskHandle_t *)&NetworkTask_Handler);
-	vTaskDelete(StartTask_Handler); //É¾³ı¿ªÊ¼ÈÎÎñ
-	taskEXIT_CRITICAL();            //ÍË³öÁÙ½çÇø
+	vTaskDelete(StartTask_Handler); //åˆ é™¤å¼€å§‹ä»»åŠ¡
+	taskEXIT_CRITICAL();            //é€€å‡ºä¸´ç•ŒåŒº
 }
 
 
 void utask_init(void)
 {
-	//TODO:ÔÚÕâÀï×ö³õÊ¼»¯¹¤×÷
-	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4); //ÉèÖÃÏµÍ³ÖĞ¶ÏÓÅÏÈ¼¶·Ö×é4
-	delay_init(168);                                //³õÊ¼»¯ÑÓÊ±º¯Êı
-	uart_init(115200);                              //³õÊ¼»¯´®¿Ú
-	LED_Init();                                     //³õÊ¼»¯LED¶Ë¿Ú
+	//TODO:åœ¨è¿™é‡Œåšåˆå§‹åŒ–å·¥ä½œ
+	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4); //è®¾ç½®ç³»ç»Ÿä¸­æ–­ä¼˜å…ˆçº§åˆ†ç»„4
+	delay_init(168);                                //åˆå§‹åŒ–å»¶æ—¶å‡½æ•°
+	uart_init(115200);                              //åˆå§‹åŒ–ä¸²å£
+	LED_Init();                                     //åˆå§‹åŒ–LEDç«¯å£
+	network_init();									//åˆå§‹åŒ–ç½‘ç»œ
 
-	//´´½¨¿ªÊ¼ÈÎÎñ
-	xTaskCreate((TaskFunction_t)start_task,          //ÈÎÎñº¯Êı
-			  (const char *)"start_task",          //ÈÎÎñÃû³Æ
-			  (uint16_t)START_STK_SIZE,            //ÈÎÎñ¶ÑÕ»´óĞ¡
-			  (void *)NULL,                        //´«µİ¸øÈÎÎñº¯ÊıµÄ²ÎÊı
-			  (UBaseType_t)START_TASK_PRIO,        //ÈÎÎñÓÅÏÈ¼¶
-			  (TaskHandle_t *)&StartTask_Handler); //ÈÎÎñ¾ä±ú
-	vTaskStartScheduler();                           //¿ªÆôÈÎÎñµ÷¶È
+	//åˆ›å»ºå¼€å§‹ä»»åŠ¡
+	xTaskCreate((TaskFunction_t)start_task,          //ä»»åŠ¡å‡½æ•°
+			  (const char *)"start_task",          //ä»»åŠ¡åç§°
+			  (uint16_t)START_STK_SIZE,            //ä»»åŠ¡å †æ ˆå¤§å°
+			  (void *)NULL,                        //ä¼ é€’ç»™ä»»åŠ¡å‡½æ•°çš„å‚æ•°
+			  (UBaseType_t)START_TASK_PRIO,        //ä»»åŠ¡ä¼˜å…ˆçº§
+			  (TaskHandle_t *)&StartTask_Handler); //ä»»åŠ¡å¥æŸ„
+	vTaskStartScheduler();                           //å¼€å¯ä»»åŠ¡è°ƒåº¦
 }
